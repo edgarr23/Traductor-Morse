@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Traductor Morse</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a237e; /* azul marino */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      margin-top: 40px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .titulo-box {
+      background-color: #000;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .titulo-box h2 {
+      margin: 0;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    input {
+      margin-top: 15px;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #f0f0f0; /* gris suave */
+      color: black;
+    }
+
+    .botones-box {
+      background-color: #000;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .fila {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .botones-inferiores {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #f0f0f0;
+      color: black;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d6d6d6;
+    }
+
+    .boton-largo {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="titulo-box">
+      <h2>Traductor Morse ESP8266</h2>
+      <input type="text" id="output" readonly placeholder="Aquí aparecerá tu mensaje en Morse">
+    </div>
+
+    <div class="botones-box">
+      <div class="fila">
+        <button onclick="enviar('/r')">.</button>
+        <button onclick="enviar('/-')">-</button>
+        <button onclick="enviar('/sl')">/</button>
+      </div>
+      <div class="fila">
+        <button class="boton-largo" onclick="enviar('/sp')">SPACE</button>
+      </div>
+      <div class="botones-inferiores">
+        <button onclick="enviar('/del')">Eliminar</button>
+        <button onclick="enviar('/delete')">Eliminar Todo</button>
+      </div>
+      <div class="fila">
+        <button class="boton-largo" onclick="enviar('/enter')">ENTER</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function enviar(ruta) {
+      const respuesta = await fetch(ruta);
+      const texto = await respuesta.text();
+      document.getElementById("output").value = texto;
+    }
+  </script>
+
+</body>
+</html>
+
